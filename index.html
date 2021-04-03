@@ -61,6 +61,7 @@
         function setup() {
             createCanvas(1000, 1000);
             rectMode(CENTER);
+            textFont(font);
             timer_start = millis();
             start();
         }
@@ -102,7 +103,7 @@
             background(0);
             let s = 'Click to start game.';
             fill(255);
-            textFont(font);
+            
             textSize(30)
             text(s, width/1.65,height/2, width/2, 50); // Text wraps within
 
