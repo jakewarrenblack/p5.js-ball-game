@@ -203,7 +203,7 @@
         }
 
         function setScore(){
-            if(parseInt(getItem('highScore')) != null){
+            if(parseInt(getItem('highScore')) != null && getItem('highScore') != null){
                 if(parseInt(getItem('score')) > parseInt(getItem('highScore'))){
                     storeItem('highScore',getItem('score'));
                 }
