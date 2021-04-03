@@ -1,0 +1,57 @@
+body{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:100%;
+    background:white;
+    flex-direction:column;
+    font-family:'Audiowide-Regular','Arial',sans-serif;
+    text-align:center;
+}
+
+main{
+    z-index:100;
+    position:relative;
+    width:40%;
+}
+
+input{
+    z-index:9999;
+}
+
+canvas{
+    border-radius:2rem;
+    width:100%!important;
+    height:100%!important;
+}
+
+svg{
+    z-index:-100;
+    position: absolute;
+    bottom:0;
+}
+
+h1,h2{
+    color:black;
+}
+
+p{
+    color:black;
+    font-size:1.2rem;
+}
+
+
+@media screen and (max-width: 600px) {
+    canvas{
+        width:90%!important;
+    }
+    main{
+        width:100%!important;
+        display:flex;
+        justify-content:center;
+    }
+
+    svg{
+        display:none;
+    }
+}
