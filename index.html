@@ -21,10 +21,6 @@
         var time;
         var score= 0;
         var highScore = 0;
-
-
-
-
         var time_flash;
         let track;
 
@@ -67,7 +63,6 @@
             rectMode(CENTER);
             timer_start = millis();
             start();
-
         }
         
         function start(){
@@ -168,9 +163,6 @@
         function play(){
             background(240,250,255);              
             noStroke();  
-            var mobileInfo = 'x: ' + mobileX;
-            text(mobileInfo, width/1.65,height-20, width/2, 50); // Text wraps within
-            //resetSketch();
 
             document.getElementById("playerTime").innerHTML = "0 Seconds";
             
