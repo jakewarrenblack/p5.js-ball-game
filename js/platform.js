@@ -73,4 +73,16 @@ class Platform{
             return true;
         }
     }
+
+    moveUp(){
+        this.y-=this.speed;
+    }
+
+    checkY(context){
+        if(this.y-this.height/2 < 0){
+            this.x = round(random(0,width));
+            this.width = round(random(context.minWidth,context.maxWidth));
+            this.y = height+this.height;
+        }
+    }
 }

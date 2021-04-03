@@ -97,20 +97,6 @@
 
             pFill = platform1.fill;
         }
-        
-    
-
-        function moveUp(object){
-            object.y-=object.speed;
-        }
-
-        function checkY(object){
-            if(object.y-object.height/2 < 0){
-                object.x = round(random(0,width));
-                object.width = round(random(minWidth,maxWidth));
-                object.y = height+object.height;
-            }
-        }
 
         function home(){
             background(0);
@@ -185,9 +171,6 @@
             ball.remainOnScreen();  
             ball.accelerometerX = mobileX;
 
-            // Removing the jumping for now, makes it too easy
-
-            //ball.jump();
             ball.roll_L();
             ball.roll_R();
 
@@ -199,8 +182,8 @@
                 var myTime = getTime();  
                 document.getElementById("playerTime").innerHTML = myTime;
                 platforms.forEach(element => element.checkCollision(ball));
-                platforms.forEach(element => moveUp(element));
-                platforms.forEach(element => checkY(element));
+                platforms.forEach(element => element.moveUp());
+                platforms.forEach(element => element.checkY(this));
                 platforms.forEach(element => element.update(track,time));
                 // Means we'll only check if the ball has collided with the ceiling AFTER the game has begun (it's okay to hit the ceiling while you're on the starter platform)
                 ball.checkDeath(platformL);
@@ -217,7 +200,6 @@
                 setScore();
                 gameState = 3;
             }
-
         }
 
         function setScore(){
@@ -244,17 +226,13 @@
             let s = 'You died! Click to play again.';
             let scoreText = 'Your score was: ' + getItem('score');
 
-
-
             let highScoreText = 'High score: ' + getItem('highScore');
             text(highScoreText,width/1.7,height/2+300,width/2,50)
             
-
             fill(0);
             textSize(30)
             text(s, width/1.8,height/3, width/2, 50); // Text wraps within
             text(scoreText,width/1.8,height/2,width/2,50);
-            
 
             if (mouseIsPressed) {
                 if (mouseButton === LEFT) {
@@ -279,7 +257,6 @@
         }
 
         function checkState(){
-            
             getTime();
             if(gameState == 1){
                 home();
@@ -290,7 +267,6 @@
             if(gameState == 3){
                 death();
             }
-
         }
 
         function draw() {
@@ -301,6 +277,6 @@
                 mobileX = parseInt(e.accelerationIncludingGravity.x);
             });
     </script>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,160L80,176C160,192,320,224,480,213.3C640,203,800,149,960,133.3C1120,117,1280,139,1360,149.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,160L80,176C160,192,320,224,480,213.3C640,203,800,149,960,133.3C1120,117,1280,139,1360,149.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
 </body>
 </html>
