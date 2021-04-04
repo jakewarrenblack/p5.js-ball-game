@@ -184,9 +184,33 @@ function play(){
     }
 }
 
+function stringifyScore(scoreValue){
+    //split string value of score/highscore into array, split by spaces
+    var scoreArr = scoreValue.toString().split(" ");
+    
+    //eg '30 seconds'
+    if(scoreArr.length == 2){
+        var s = parseInt(scoreArr[0]);
+        sTotal = s;
+    }
+    //eg '1 minute 30 seconds'
+    if(scoreArr.length == 4){
+        var m = (parseInt(scoreArr[0]))*60;
+        var s = (parseInt(scoreArr[2]));
+        sTotal = m+s;
+    }
+    // value returned will be integer representation of '30 seconds' or '1 minute 30 seconds', means we can compare the integer values
+    // before doing this, a score of over 1 minute would not register as a highscore
+    return sTotal;
+}
+
 function setScore(){
-    if(parseInt(getItem('highScore')) != null && getItem('highScore') != null){
-        if(parseInt(getItem('score')) > parseInt(getItem('highScore'))){
+    // I'm stripping out the 'minutes' and 'seconds' to make sure we have an int to compare with our score (which is derived from 'getTime()')
+    if(parseInt(getItem('highScore'))!=null && getItem('highScore')!=null){
+        var score_int = stringifyScore(getItem('score'));
+        var highScore_int = stringifyScore(getItem('highScore'));
+
+        if(score_int > highScore_int){
             storeItem('highScore',getItem('score'));
         }
     }
@@ -209,12 +233,12 @@ function death(){
     let scoreText = 'Your score was: ' + getItem('score');
 
     let highScoreText = 'High score: ' + getItem('highScore');
-    text(highScoreText,width/1.7,height/2+300,width/2,50)
+    text(highScoreText,width/1.7,height/2+300,width/2,80)
     
     fill(0);
     textSize(30)
     text(s, width/1.8,height/3, width/2, 50); // Text wraps within
-    text(scoreText,width/1.8,height/2,width/2,50);
+    text(scoreText,width/1.8,height/2,width/2,80);
 
     if (mouseIsPressed) {
         if (mouseButton === LEFT) {

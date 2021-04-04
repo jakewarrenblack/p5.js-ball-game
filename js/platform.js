@@ -35,6 +35,7 @@ class Platform{
         }
     }
 
+    // for speeding up and changing colour, stage six is handled in script.js (flashing red and black)
     update(track,time){
         if(time-this.lastAddition > this.interval && this.speed<=this.maxSpeed){
             this.speed++;
