@@ -1,4 +1,4 @@
-p5.disableFriendlyErrors = true;
+// p5.disableFriendlyErrors = true;
 var time;
 var score= 0;
 var highScore = 0;
@@ -57,25 +57,43 @@ function start(){
     // Max width of a platform is half the screen minus a gap for the ball to fit through
     maxWidth=(width/3-ball.rad);
 
+    // Static - height/8 = 125 (+height/2 = 137.5)
+    platformL = new Platform(width/2-ball.rad,25,width/5,50);
+
+    var platformHeight = 25;
+
+    // remaining height = 862.5
+    var remainingHeight = height-(platformL.y+platformL.height);
+
+
+    var y1 = round(random(platformL.y+platformL.height,remainingHeight/9));
+    var y2 = round(random(remainingHeight/9+platformHeight,(remainingHeight/9)*2));
+    var y3 = round(random(remainingHeight/9*2+platformHeight,remainingHeight/9*3));
+    var y4 = round(random(remainingHeight/9*3+platformHeight,remainingHeight/9*4));
+    var y5 = round(random(remainingHeight/9*4+platformHeight,remainingHeight/9*5));
+    var y6 = round(random(remainingHeight/9*5+platformHeight,remainingHeight/9*6));
+    var y7 = round(random(remainingHeight/9*6+platformHeight,remainingHeight/9*7));
+    var y8 = round(random(remainingHeight/9*7+platformHeight,remainingHeight/9*8));
+    var y9 = round(random(remainingHeight/9*8+platformHeight,remainingHeight));
+
     //row1
-    platform1 = new Platform(round(random(minWidth,maxWidth)),25,round(random(0,width/3)),round(random(150,300)));
-    platform2 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3,width/3*2)),round(random(300,450)));
-    platform3 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3*2,width)),round(random(300,450)));
+    platform1 = new Platform(round(random(minWidth,maxWidth)),25,round(random(0,width/3)),y1);
+    platform2 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3,width/3*2)),y2);
+    platform3 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3*2,width)),y3);
 
     //row2
-    platform4 = new Platform(round(random(minWidth,maxWidth)),25,round(random(0,width/3)),round(random(450,600)));
-    platform5 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3,width/3*2)),round(random(600,750)));
-    platform6 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3*2,width)),round(random(600,750)));
+    platform4 = new Platform(round(random(minWidth,maxWidth)),25,round(random(0,width/3)),y4);
+    platform5 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3,width/3*2)),y5);
+    platform6 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3*2,width)),y6);
 
     //row3
-    platform7 = new Platform(round(random(minWidth,maxWidth)),25,round(random(0,width/3)),round(random(750,900)));
-    platform8 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3,width/3*2)),round(random(900,1000)));
-    platform9 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3*2,width)),round(random(900,1000)));
+    platform7 = new Platform(round(random(minWidth,maxWidth)),25,round(random(0,width/3)),y7);
+    platform8 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3,width/3*2)),y8);
+    platform9 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3*2,width)),y9);
 
     platforms = [platform1,platform2,platform3,platform4,platform5,platform6,platform7,platform8,platform9];
 
-    // Static
-    platformL = new Platform(width/2-ball.rad,25,width/5,height/8);
+    
 
     pFill = platform1.fill;
 }
@@ -182,6 +200,11 @@ function play(){
         setScore();
         gameState = 3;
     }
+}
+
+function spliceOne(array,index){
+    array.splice(index,1);
+    return array;
 }
 
 function stringifyScore(scoreValue){

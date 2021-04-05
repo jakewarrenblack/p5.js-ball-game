@@ -15,6 +15,8 @@ class Platform{
         this.maxSpeed = maxSpeed;
         this.fill = fill;
         this.hasBeenReset;
+
+        this.pos = createVector(x,y);
     }
     
     bounceBottom(surface){
@@ -31,7 +33,8 @@ class Platform{
             // Check distance between object and platform now, we already know it's between the edges of the platform
             if (dist(object.x, object.y, object.x, this.y)<=(object.rad/2)){
                 object.bounceBottom(this.y);            
-            }     
+            }  
+            // could add bounceTop?   
         }
     }
 
