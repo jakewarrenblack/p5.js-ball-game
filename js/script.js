@@ -149,6 +149,7 @@ function getTime(){
 function play(){
     background(240,250,255);              
     noStroke();  
+    noCursor();
 
     document.getElementById("playerTime").innerHTML = "0 Seconds";
     
@@ -249,6 +250,8 @@ function resetSketch(){
 function death(){
     score = getTime();
     resetSketch();
+    // Cursor is hidden while in play, so show it
+    cursor();
     track.pause();
     background(255,0,0);
     

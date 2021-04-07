@@ -83,7 +83,7 @@ class Platform{
     }
 
     checkY(context){
-        if(this.y-this.height/2 < 0){
+        if(this.y-this.height/2 < 0-this.height){
             this.x = round(random(0,width));
             this.width = round(random(context.minWidth,context.maxWidth));
             this.y = height+this.height;
