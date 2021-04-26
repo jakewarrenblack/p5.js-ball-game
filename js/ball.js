@@ -35,26 +35,14 @@ class Ball{
     bounceLeft(surface){
         // Don't let ball intersect with side, just touch
         this.x = surface+(this.rad/2);
-        // Apply force to reduce speed on collision
-        this.hSpeed-=(this.hSpeed * friction);
     }
 
     bounceRight(surface){
         this.x = surface-(this.rad/2);
-        this.hSpeed -= (this.hSpeed * friction);
     }
     
 
     remainOnScreen(){
-        // if ball hit floor
-        if(this.y+(this.rad/2) > height){
-            this.bounceBottom(height);
-        }
-        // if ball hit ceiling
-        if(this.y-(this.rad/2) <0){
-            this.bounceTop(0);
-        }
-
         if(this.x-(this.rad/2) < 0){
             this.bounceLeft(0);
         }
@@ -63,7 +51,7 @@ class Ball{
             this.bounceRight(width);
         }
     }
-
+    // No longer used
     jump(){
         if(keyIsDown(UP_ARROW)){
             this.bounceBottom(this.y)

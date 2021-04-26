@@ -6,6 +6,9 @@ var time_flash;
 let track;
 
 function preload() {
+    // Issues with this on mobile, Chrome/Firefox seem to depend on some input for sound to play correctly
+    // But this game technically does not require any input, as movement is controlled using gyroscope
+    // This also means the device will keep going to sleep
     soundFormats('wav','mp3');
     track = loadSound('assets/soundtrack.wav','assets/sountrack.mp3');
     font = loadFont('assets/Audiowide-Regular.ttf');
@@ -43,6 +46,7 @@ function setup() {
     createCanvas(1000, 1000);
     rectMode(CENTER);
     textFont(font);
+    // our initial timer
     timer_start = millis();
     start();
 }
@@ -64,7 +68,6 @@ function start(){
 
     // remaining height = 862.5
     var remainingHeight = height-(platformL.y+platformL.height);
-
 
     var y1 = round(random(platformL.y+platformL.height,remainingHeight/9));
     var y2 = round(random(remainingHeight/9+platformHeight,(remainingHeight/9)*2));
@@ -91,9 +94,8 @@ function start(){
     platform8 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3,width/3*2)),y8);
     platform9 = new Platform(round(random(minWidth,maxWidth)),25,round(random(width/3*2,width)),y9);
 
+    // pass all platforms into an array - movement and collision checks will be called through forEach in play()
     platforms = [platform1,platform2,platform3,platform4,platform5,platform6,platform7,platform8,platform9];
-
-    
 
     pFill = platform1.fill;
 }
@@ -115,6 +117,7 @@ function home(){
     }
 }
 
+// Final stage of platform colour change. All stages prior to this are handled within the Platform class.
 function flash(){
     platforms.forEach(element => element.fill = 'rgb(0,0,0)');
     var passedMillis = millis() - time_flash;
@@ -149,11 +152,13 @@ function getTime(){
 function play(){
     background(240,250,255);              
     noStroke();  
+    // Hide cursor while game is in play
     noCursor();
 
+    // Initialise innerHTML to 0 seconds
     document.getElementById("playerTime").innerHTML = "0 Seconds";
     
-    // Constant platforms
+    // Constant platform (starter platform)
     rect(platformL.x,platformL.y,platformL.width,platformL.height,20);
     //moving platforms
     rect(platform1.x,platform1.y,platform1.width,platform1.height,20);
@@ -187,6 +192,7 @@ function play(){
         platforms.forEach(element => element.checkY(this));
         platforms.forEach(element => element.update(track,time));
         // Means we'll only check if the ball has collided with the ceiling AFTER the game has begun (it's okay to hit the ceiling while you're on the starter platform)
+        // This was important at first, but I've since removed the ability to 'jump', so this will never happen
         ball.checkDeath(platformL);
         pFill = platform1.fill;
     }
@@ -268,17 +274,6 @@ function death(){
 
     if (mouseIsPressed) {
         if (mouseButton === LEFT) {
-            track.loop();
-            resetSketch();
-            start();
-            ball.alive = true;
-            gameState = 2;
-        }
-    }
-
-    // For mobile
-    function touchEnded() {
-        if (value === 0) {
             track.loop();
             resetSketch();
             start();

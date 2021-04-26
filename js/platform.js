@@ -15,7 +15,7 @@ class Platform{
         this.maxSpeed = maxSpeed;
         this.fill = fill;
         this.hasBeenReset;
-
+        // combine our x and y values into a single vector
         this.pos = createVector(x,y);
     }
     
@@ -34,7 +34,6 @@ class Platform{
             if (dist(object.x, object.y, object.x, this.y)<=(object.rad/2)){
                 object.bounceBottom(this.y);            
             }  
-            // could add bounceTop?   
         }
     }
 
